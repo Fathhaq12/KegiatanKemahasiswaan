@@ -3,19 +3,19 @@ import Navbar from "../components/navbar";
 import { loginUser } from "../api";
 
 function Login() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!email || !password) {
+    if (!username || !password) {
       setError("Email dan password wajib diisi!");
       return;
     }
     setError("");
     try {
-      await loginUser({ username: email, password });
+      await loginUser({ username: username, password });
       alert("Login berhasil!");
       // Redirect atau simpan token jika perlu
     } catch (err) {
@@ -30,14 +30,14 @@ function Login() {
           <h1 className="title has-text-centered">Login</h1>
           <form onSubmit={handleSubmit}>
             <div className="field">
-              <label className="label">Email</label>
+              <label className="label">username</label>
               <div className="control">
                 <input
                   className="input"
-                  type="email"
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  type="text"
+                  placeholder="username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   required
                 />
               </div>
