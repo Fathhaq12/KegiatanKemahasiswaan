@@ -2,13 +2,26 @@ import axios from "axios";
 
 const API_URL = "http://localhost:5000/api";
 
+// Tambahkan interceptor agar setiap request menyertakan Authorization jika ada token
+axios.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      config.headers["Authorization"] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
 // User APIs
-export const registerUser = (data) => axios.post(`${API_URL}/create-users`, data);
+export const registerUser = (data) =>
+  axios.post(`${API_URL}/create-users`, data);
 export const loginUser = (data) => axios.post(`${API_URL}/login`, data);
 export const getUsers = () => axios.get(`${API_URL}/users`);
 export const getUserById = (id) => axios.get(`${API_URL}/users/${id}`);
 export const updateUser = (id, data) =>
-  axios.patch(`${API_URL}/users/${id}`, data);
+  axios.put(`${API_URL}/update-users/${id}`, data);
 export const deleteUser = (id) => axios.delete(`${API_URL}/users/${id}`);
 
 // Kegiatan APIs

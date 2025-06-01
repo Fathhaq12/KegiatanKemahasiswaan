@@ -31,7 +31,7 @@ function Navbar() {
       } catch (e) {}
       setUser(userData);
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, localStorage.getItem("userData")]);
 
   // Tutup dropdown jika klik di luar
   useEffect(() => {

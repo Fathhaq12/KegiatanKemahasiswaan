@@ -26,6 +26,10 @@ function Login() {
       if (res && res.data && res.data.safeUserData) {
         localStorage.setItem("userData", JSON.stringify(res.data.safeUserData));
       }
+      // Simpan accessToken ke localStorage
+      if (res && res.data && res.data.accessToken) {
+        localStorage.setItem("accessToken", res.data.accessToken);
+      }
       alert("Login berhasil!");
       navigate("/");
     } catch (err) {
