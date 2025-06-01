@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000";
+const API_URL = "http://localhost:5000/api";
 
 // User APIs
-export const registerUser = (data) => axios.post(`${API_URL}/register`, data);
+export const registerUser = (data) => axios.post(`${API_URL}/create-users`, data);
 export const loginUser = (data) => axios.post(`${API_URL}/login`, data);
 export const getUsers = () => axios.get(`${API_URL}/users`);
 export const getUserById = (id) => axios.get(`${API_URL}/users/${id}`);
