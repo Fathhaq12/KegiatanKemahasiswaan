@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/loading";
 import { updateUser } from "../api";
+import "bulma/css/bulma.min.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 function EditProfile() {
   const [form, setForm] = useState({ username: "", email: "", role: "" });
@@ -57,7 +59,31 @@ function EditProfile() {
   return (
     <section className="section">
       <div className="container" style={{ maxWidth: 400 }}>
-        <h1 className="title has-text-centered">Edit Profile</h1>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            marginBottom: 16,
+          }}
+        >
+          <button
+            className="button is-small is-light"
+            style={{ marginRight: 12 }}
+            onClick={() => navigate(-1)}
+            aria-label="Kembali"
+            type="button"
+          >
+            <span className="icon">
+              <i className="fas fa-arrow-left"></i>
+            </span>
+          </button>
+          <h1
+            className="title has-text-centered"
+            style={{ flex: 1, margin: 0 }}
+          >
+            Edit Profile
+          </h1>
+        </div>
         <form onSubmit={handleSubmit}>
           <div className="field">
             <label className="label">Username</label>

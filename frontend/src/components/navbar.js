@@ -59,6 +59,16 @@ function Navbar() {
     user.username || "User"
   )}&background=3273dc&color=fff&rounded=true&size=64`;
 
+  const handleProfileClick = (e) => {
+    e.preventDefault();
+    const profileSection = document.getElementById("profile-section");
+    if (window.location.pathname !== "/") {
+      window.location.href = "/#profile-section";
+    } else {
+      profileSection?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <nav
       className="navbar is-link"
@@ -87,18 +97,33 @@ function Navbar() {
           <Link className="navbar-item" to="/">
             HIMATIF
           </Link>
-          <a className="navbar-item">Kegiatan</a>
+          <Link className="navbar-item" to="/kegiatan">
+            Kegiatan
+          </Link>
           <div className="navbar-item has-dropdown is-hoverable">
             <a className="navbar-link">More</a>
             <div className="navbar-dropdown">
-              <a className="navbar-item is-link">Input Kegiatan</a>
-              <a className="navbar-item is-link">Profile HIMATIF</a>
+              <Link className="navbar-item is-link" to="/input-kegiatan">
+                Input Kegiatan
+              </Link>
+              <a
+                className="navbar-item is-link"
+                href="#profile-section"
+                onClick={handleProfileClick}
+              >
+                Profile HIMATIF
+              </a>
             </div>
           </div>
         </div>
         <div className="navbar-end">
           <div className="navbar-item">
             <div className="buttons">
+              {isLoggedIn && user.role === "admin" && (
+                <Link className="button is-warning" to="/admin">
+                  Admin
+                </Link>
+              )}
               {isLoggedIn ? (
                 <div
                   className="navbar-item"
@@ -126,12 +151,6 @@ function Navbar() {
                     </figure>
                     <span style={{ color: "#fff", fontWeight: 600 }}>
                       {user.username}
-                    </span>
-                    <span
-                      className="icon"
-                      style={{ color: "#fff", marginLeft: 4 }}
-                    >
-                      <i className="fas fa-caret-down"></i>
                     </span>
                   </div>
                   {dropdown && (

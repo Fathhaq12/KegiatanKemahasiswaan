@@ -3,6 +3,9 @@ import Utama from "./page/utama";
 import Login from "./page/login";
 import Register from "./page/register";
 import EditProfile from "./page/edit-profile";
+import KegiatanPage from "./page/kegiatan";
+import InputKegiatan from "./page/input-kegiatan";
+import Admin from "./page/admin";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -14,6 +17,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/edit-profile" element={<EditProfile />} />
+        <Route path="/kegiatan" element={<KegiatanPage />} />
+        <Route path="/input-kegiatan" element={<InputKegiatan />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </Router>
   );
