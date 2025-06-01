@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Navbar from "../components/navbar";
-import axios from "axios";
+import { registerUser } from "../api";
 
 function Register() {
   const [form, setForm] = useState({
@@ -23,7 +23,7 @@ function Register() {
     }
     setError("");
     try {
-      await axios.post("http://localhost:5000/register", form);
+      await registerUser(form);
       alert("Registrasi berhasil!");
       // Redirect atau reset form jika perlu
     } catch (err) {

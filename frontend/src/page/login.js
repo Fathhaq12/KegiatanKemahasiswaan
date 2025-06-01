@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Navbar from "../components/navbar";
-import axios from "axios";
+import { loginUser } from "../api";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -15,7 +15,7 @@ function Login() {
     }
     setError("");
     try {
-      await axios.post("http://localhost:5000/login", { email, password });
+      await loginUser({ username: email, password });
       alert("Login berhasil!");
       // Redirect atau simpan token jika perlu
     } catch (err) {
