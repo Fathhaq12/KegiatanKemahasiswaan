@@ -1,0 +1,124 @@
+### Register Mahasiswa
+POST http://localhost:5000/api/create-users
+Content-Type: application/json
+
+{
+  "username": "mahasiswa1",
+  "email": "mahasiswa1@example.com",
+  "password": "password123"
+}
+
+### Register Admin
+POST http://localhost:5000/api/create-users
+Content-Type: application/json
+
+{
+  "username": "admin1",
+  "email": "admin1@example.com",
+  "password": "adminpassword",
+  "role": "admin"
+}
+
+### Login Mahasiswa
+POST http://localhost:5000/api/login
+Content-Type: application/json
+
+{
+  "username": "mahasiswa1",
+  "password": "password123"
+}
+
+### Login Admin
+POST http://localhost:5000/api/login
+Content-Type: application/json
+
+{
+  "username": "admin1",
+  "password": "adminpassword"
+}
+
+### 
+# Setelah login, copy accessToken dari response dan paste di bawah ini:
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJtYWhhc2lzd2ExIiwiZW1haWwiOiJtYWhhc2lzd2ExQGV4YW1wbGUuY29tIiwicm9sZSI6Im1haGFzaXN3YSIsImlhdCI6MTc0ODc3NDc2OCwiZXhwIjoxNzQ4Nzc2NTY4fQ.pnZCCIlJXhLn991Dg5kwzieOi3_OFg6fa-q920ybx4I
+
+### Get Profile
+GET http://localhost:5000/api/profile
+Authorization: Bearer {{token}}
+
+### Get All Users (admin only)
+GET http://localhost:5000/api/users
+Authorization: Bearer {{token}}
+
+### Get User By Id (admin only)
+GET http://localhost:5000/api/users/1
+Authorization: Bearer {{token}}
+
+### Update User (admin only)
+PUT http://localhost:5000/api/update-users/2
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "username": "mahasiswa1update",
+  "email": "mahasiswa1update@example.com",
+  "password": "newpassword"
+}
+
+### Delete User (admin only)
+DELETE http://localhost:5000/api/delete-users/1
+Authorization: Bearer {{token}}
+
+### Create Kegiatan (mahasiswa)
+POST http://localhost:5000/api/kegiatan
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "nama_kegiatan": "Seminar Nasional",
+  "tanggal": "2024-06-01",
+  "deskripsi": "Mengikuti seminar nasional tentang teknologi."
+}
+
+### Get Kegiatan (mahasiswa or admin)
+GET http://localhost:5000/api/kegiatan
+Authorization: Bearer {{token}}
+
+### Update Kegiatan (mahasiswa: hanya milik sendiri, admin: semua)
+PUT http://localhost:5000/api/kegiatan/3
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "nama_kegiatan": "Seminar Nasional Update",
+  "tanggal": "2024-06-02",
+  "deskripsi": "Update deskripsi kegiatan."
+}
+
+### Delete Kegiatan (mahasiswa: hanya milik sendiri, admin: semua)
+DELETE http://localhost:5000/api/kegiatan/3
+Authorization: Bearer {{token}}
+
+### Update Status Kegiatan (admin only)
+PATCH http://localhost:5000/api/kegiatan/3/status
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "status": "approved"
+}
+
+### Refresh Token
+POST http://localhost:5000/api/refresh-token
+Content-Type: application/json
+
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJtYWhhc2lzd2ExIiwiZW1haWwiOiJtYWhhc2lzd2ExQGV4YW1wbGUuY29tIiwicm9sZSI6Im1haGFzaXN3YSIsImlhdCI6MTc0ODc3NDc2OCwiZXhwIjoxNzQ4ODYxMTY4fQ.rZP5mkkcrZaLaw1AUQino3BnO7wq8h1FTbleLgG-Nhc"
+}
+
+### Logout
+POST http://localhost:5000/api/logout
+Content-Type: application/json
+
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJhZG1pbjEiLCJlbWFpbCI6ImFkbWluMUBleGFtcGxlLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc0ODc3NDQyNCwiZXhwIjoxNzQ4ODYwODI0fQ.GBkC0Qus9Aqk9JlyegbKAK_-xr6eJJHcrlRAbKqjVok"
+}
