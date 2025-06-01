@@ -2,17 +2,11 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { mysqlDb, pgDb } from "./config/database.js";
-import User from "./models/UserModel.js";
-import Kegiatan from "./models/KegiatanModel.js";
+
 import UserRoute from "./routes/UserRoute.js";
 import KegiatanRoute from "./routes/KegiatanRoute.js";
 import { refreshToken } from "./controller/RefreshToken.js";
-import {
-  createKegiatan,
-  getKegiatan,
-  updateStatus,
-} from "./controller/KegiatanController.js";
-import { verifyToken, isAdmin } from "./middleware/VerifyToken.js";
+
 
 dotenv.config();
 

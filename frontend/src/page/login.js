@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import Navbar from "../components/navbar";
 import { loginUser } from "../api";
+import Loading from "../components/loading";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,14 +18,23 @@ function Login() {
       return;
     }
     setError("");
+    setLoading(true);
     try {
-      await loginUser({ username: username, password });
+      const res = await loginUser({ username: username, password });
+      localStorage.setItem("isLoggedIn", "true");
+      // Simpan data user ke localStorage agar navbar bisa akses username dan role
+      if (res && res.data && res.data.safeUserData) {
+        localStorage.setItem("userData", JSON.stringify(res.data.safeUserData));
+      }
       alert("Login berhasil!");
-      // Redirect atau simpan token jika perlu
+      navigate("/");
     } catch (err) {
       setError(err.response?.data?.msg || "Login gagal!");
     }
+    setLoading(false);
   };
+
+  if (loading) return <Loading text="Memproses login..." />;
 
   return (
     <>

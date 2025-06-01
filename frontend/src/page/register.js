@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../components/navbar";
 import { registerUser } from "../api";
+import Loading from "../components/loading";
 
 function Register() {
   const [form, setForm] = useState({
@@ -10,6 +11,7 @@ function Register() {
     role: "",
   });
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -22,6 +24,7 @@ function Register() {
       return;
     }
     setError("");
+    setLoading(true);
     try {
       await registerUser(form);
       alert("Registrasi berhasil!");
@@ -29,7 +32,10 @@ function Register() {
     } catch (err) {
       setError(err.response?.data?.msg || "Registrasi gagal!");
     }
+    setLoading(false);
   };
+
+  if (loading) return <Loading text="Mendaftarkan akun..." />;
 
   return (
     <>
