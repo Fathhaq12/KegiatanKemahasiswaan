@@ -61,22 +61,6 @@ function Utama() {
                   <p>{profileHimatif.deskripsi}</p>
                 </div>
               </div>
-              {/* Slide 2: Data kegiatan */}
-              <div className="carousel-item">
-                {kegiatan ? (
-                  <div className="has-text-centered">
-                    <h2 className="title is-4">{kegiatan.nama_kegiatan}</h2>
-                    <p>
-                      <strong>Tanggal:</strong> {kegiatan.tanggal}
-                    </p>
-                    <p>{kegiatan.deskripsi}</p>
-                  </div>
-                ) : (
-                  <div className="has-text-centered">
-                    Tidak ada kegiatan disetujui
-                  </div>
-                )}
-              </div>
             </div>
             <div className="carousel-navigation is-centered"></div>
           </div>
