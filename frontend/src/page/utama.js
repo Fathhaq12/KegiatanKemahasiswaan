@@ -69,39 +69,52 @@ function Utama() {
             ref={carouselRef}
             className="carousel"
             style={{
-              padding: "2rem",
               backgroundColor: "#fff",
               boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-              borderRadius: "8px",
+              borderRadius: "12px",
+              padding: "0",
+              marginBottom: "2rem",
+              overflow: "hidden",
+              minHeight: 260,
             }}
           >
             {/* Slide 1: Profile HIMATIF */}
-            <div className="carousel-item is-active">
+            <div
+              className="carousel-item is-active"
+              style={{ padding: "2.5rem 2rem" }}
+            >
               <div className="columns is-vcentered is-mobile">
                 <div className="column is-5 has-text-centered">
                   <img
                     src={profileHimatif.gambar}
                     alt="Profile HIMATIF"
                     style={{
-                      maxHeight: 200,
+                      maxHeight: 180,
                       width: "auto",
                       margin: "0 auto",
-                      transition: "all 0.3s ease-in-out",
+                      borderRadius: 12,
+                      boxShadow: "0 1px 6px rgba(0,0,0,0.08)",
                     }}
                   />
                 </div>
                 <div className="column is-7">
-                  <div style={{ maxWidth: "400px", margin: "0 auto" }}>
-                    <h2 className="title is-4 mb-2">{profileHimatif.nama}</h2>
+                  <div style={{ maxWidth: 420, margin: "0 auto" }}>
+                    <h2
+                      className="title is-4 mb-2"
+                      style={{ color: "#1a237e" }}
+                    >
+                      {profileHimatif.nama}
+                    </h2>
                     <p
                       className="subtitle is-6 has-text-grey"
                       style={{
-                        fontSize: "0.9rem",
-                        lineHeight: "1.5",
+                        fontSize: "0.98rem",
+                        lineHeight: "1.6",
                         overflow: "hidden",
                         display: "-webkit-box",
-                        WebkitLineClamp: "4",
+                        WebkitLineClamp: 4,
                         WebkitBoxOrient: "vertical",
+                        marginBottom: 8,
                       }}
                     >
                       {profileHimatif.deskripsi}
@@ -110,15 +123,16 @@ function Utama() {
                       onClick={() =>
                         profileSection.current?.scrollIntoView({
                           behavior: "smooth",
-                          href: "#profile-section",
                         })
                       }
                       className="button is-primary is-small is-outlined mt-2"
                       style={{
-                        borderRadius: "20px",
+                        borderRadius: 20,
                         padding: "0 20px",
-                        height: "32px",
-                        fontSize: "0.85rem",
+                        height: 32,
+                        fontSize: "0.92rem",
+                        fontWeight: 500,
+                        letterSpacing: 0.2,
                         transition: "all 0.3s ease",
                       }}
                     >
@@ -130,18 +144,33 @@ function Utama() {
             </div>
 
             {/* Slide 2: Kegiatan */}
-            <div className="carousel-item">
+            <div className="carousel-item" style={{ padding: "2.5rem 2rem" }}>
               {kegiatan ? (
                 <div className="columns is-vcentered is-mobile">
                   <div className="column is-5 has-text-centered">
                     <div
                       className="box has-background-primary-light"
-                      style={{ padding: "2rem" }}
+                      style={{
+                        padding: "1.5rem 1rem",
+                        borderRadius: 10,
+                        boxShadow: "0 1px 6px rgba(0,0,0,0.07)",
+                        minHeight: 120,
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
                     >
-                      <h2 className="title is-4 has-text-primary">
+                      <h2
+                        className="title is-4 has-text-primary"
+                        style={{ marginBottom: 8 }}
+                      >
                         {kegiatan.nama_kegiatan}
                       </h2>
-                      <p className="subtitle is-6 has-text-grey">
+                      <p
+                        className="subtitle is-6 has-text-grey"
+                        style={{ fontSize: "0.95rem" }}
+                      >
                         <strong>Tanggal:</strong> {kegiatan.tanggal}
                       </p>
                     </div>
@@ -152,8 +181,10 @@ function Utama() {
                         style={{
                           overflow: "hidden",
                           display: "-webkit-box",
-                          WebkitLineClamp: "3",
+                          WebkitLineClamp: 3,
                           WebkitBoxOrient: "vertical",
+                          fontSize: "0.98rem",
+                          marginBottom: 8,
                         }}
                       >
                         {kegiatan.deskripsi}
@@ -162,10 +193,12 @@ function Utama() {
                         onClick={() => (window.location.href = "/kegiatan")}
                         className="button is-primary is-small is-outlined mt-2"
                         style={{
-                          borderRadius: "20px",
+                          borderRadius: 20,
                           padding: "0 20px",
-                          height: "32px",
-                          fontSize: "0.85rem",
+                          height: 32,
+                          fontSize: "0.92rem",
+                          fontWeight: 500,
+                          letterSpacing: 0.2,
                           transition: "all 0.3s ease",
                         }}
                       >
