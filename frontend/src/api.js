@@ -17,7 +17,20 @@ axios.interceptors.request.use(
 // User APIs
 export const registerUser = (data) =>
   axios.post(`${API_URL}/create-users`, data);
-export const loginUser = (data) => axios.post(`${API_URL}/login`, data);
+export const loginUser = async (data) => {
+  const res = await axios.post(`${API_URL}/login`, data);
+  if (res.data && res.data.accessToken) {
+    localStorage.setItem("accessToken", res.data.accessToken);
+  }
+  if (res.data && res.data.refreshToken) {
+    localStorage.setItem("refreshToken", res.data.refreshToken);
+  }
+  if (res.data && res.data.safeUserData) {
+    localStorage.setItem("userData", JSON.stringify(res.data.safeUserData));
+  }
+  localStorage.setItem("isLoggedIn", "true");
+  return res;
+};
 export const getUsers = () => axios.get(`${API_URL}/users`);
 export const getUserById = (id) => axios.get(`${API_URL}/users/${id}`);
 export const updateUser = (id, data) =>

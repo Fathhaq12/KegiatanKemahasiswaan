@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import logo from "../gambar/Himatif.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Navbar() {
   const location = useLocation();
@@ -47,9 +48,26 @@ function Navbar() {
   // Hide login/signup hanya jika sudah login, bukan jika di halaman login/register
   const hideAuth = isLoggedIn;
 
-  const handleLogout = () => {
-    localStorage.removeItem("isLoggedIn");
+  const handleLogout = async () => {
+    try {
+      const refreshToken = localStorage.getItem("refreshToken");
+      await axios.post(
+        "http://localhost:5000/api/logout",
+        { refreshToken },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: false,
+        }
+      );
+    } catch (err) {
+      console.error("Logout error:", err);
+    }
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
     localStorage.removeItem("userData");
+    localStorage.removeItem("isLoggedIn");
     setDropdown(false);
     navigate("/login");
   };
