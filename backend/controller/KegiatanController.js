@@ -22,8 +22,11 @@ export const getKegiatan = async (req, res) => {
     let kegiatan;
     if (req.role === "admin") {
       kegiatan = await Kegiatan.findAll();
-    } else {
+    } else if (req.user_id) {
       kegiatan = await Kegiatan.findAll({ where: { user_id: req.user_id } });
+    } else {
+      // publik: hanya tampilkan approved
+      kegiatan = await Kegiatan.findAll({ where: { status: "approved" } });
     }
     res.json(kegiatan);
   } catch (err) {
