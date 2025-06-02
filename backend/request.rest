@@ -9,13 +9,13 @@ Content-Type: application/json
 }
 
 ### Register Admin
-POST http://localhost:5000/api/create-users
+POST https://kemahasiswaan-1061342868557.us-central1.run.app/api/create-users
 Content-Type: application/json
 
 {
-  "username": "admin1",
-  "email": "admin1@example.com",
-  "password": "adminpassword",
+  "username": "123220057",
+  "email": "admin1@upnyk.ac.id",
+  "password": "123220057",
   "role": "admin"
 }
 

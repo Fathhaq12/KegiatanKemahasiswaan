@@ -10,7 +10,12 @@ import { refreshToken } from "./controller/RefreshToken.js";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "http://34.170.7.222"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // User routes (register, login, logout, CRUD user, etc)
