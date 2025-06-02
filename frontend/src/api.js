@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api";
+const API_URL = "https://kemahasiswaan-1061342868557.us-central1.run.app/api";
 
 // Tambahkan interceptor agar setiap request menyertakan Authorization jika ada token
 axios.interceptors.request.use(

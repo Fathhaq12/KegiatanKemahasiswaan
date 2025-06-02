@@ -22,6 +22,11 @@ app.post("/api/refresh-token", refreshToken);
 // Kegiatan routes
 app.use("/api", KegiatanRoute);
 
+// Welcome message
+app.get("/", (req, res) => {
+  res.send("API Kemahasiswaan is running.");
+});
+
 // DB sync
 const start = async () => {
   try {
