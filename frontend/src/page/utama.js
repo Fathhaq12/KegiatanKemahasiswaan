@@ -6,7 +6,9 @@ import { getKegiatan } from "../api";
 
 function Utama() {
   const [kegiatan, setKegiatan] = useState(null);
+  const [dataLoaded, setDataLoaded] = useState(false);
   const profileSection = useRef(null);
+  const carouselRef = useRef(null);
   const profileHimatif = {
     nama: "HIMATIF UPN'V'YK",
     deskripsi:
@@ -23,20 +25,40 @@ function Utama() {
   };
 
   useEffect(() => {
-    bulmaCarousel.attach(".carousel", {
-      slidesToScroll: 1,
-      slidesToShow: 1,
-      autoplay: true,
-      loop: true,
-    });
-    // Ambil 1 data kegiatan approved terbaru
+    // Ambil data kegiatan terlebih dahulu
     getKegiatan()
       .then((res) => {
         const approved = res.data.filter((k) => k.status === "approved");
         if (approved.length > 0) setKegiatan(approved[0]);
+        setDataLoaded(true);
       })
-      .catch(() => {});
+      .catch(() => {
+        setDataLoaded(true);
+      });
   }, []);
+
+  useEffect(() => {
+    // Inisialisasi carousel setelah data loaded dan DOM ready
+    if (dataLoaded && carouselRef.current) {
+      const timer = setTimeout(() => {
+        try {
+          bulmaCarousel.attach(carouselRef.current, {
+            slidesToScroll: 1,
+            slidesToShow: 1,
+            autoplay: true,
+            autoplaySpeed: 5000,
+            loop: true,
+            infinite: true,
+            pauseOnHover: true,
+          });
+        } catch (error) {
+          console.error("Carousel initialization error:", error);
+        }
+      }, 100);
+
+      return () => clearTimeout(timer);
+    }
+  }, [dataLoaded]);
 
   return (
     <>
@@ -44,11 +66,13 @@ function Utama() {
         <div className="container">
           {/* Carousel section */}
           <div
-            className="box"
+            ref={carouselRef}
+            className="carousel"
             style={{
               padding: "2rem",
               backgroundColor: "#fff",
               boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+              borderRadius: "8px",
             }}
           >
             {/* Slide 1: Profile HIMATIF */}
