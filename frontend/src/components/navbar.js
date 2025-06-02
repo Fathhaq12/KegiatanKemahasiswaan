@@ -9,6 +9,7 @@ function Navbar() {
   const isLoggedIn = !!localStorage.getItem("isLoggedIn");
   const [user, setUser] = useState({ username: "", role: "" });
   const [dropdown, setDropdown] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   const dropdownRef = useRef(null);
 
   // Simulasi ambil data user dari localStorage (atau bisa dari API/profile)
@@ -99,10 +100,11 @@ function Navbar() {
         </Link>
         <a
           role="button"
-          className="navbar-burger"
+          className={`navbar-burger${isActive ? " is-active" : ""}`}
           aria-label="menu"
-          aria-expanded="false"
+          aria-expanded={isActive ? "true" : "false"}
           data-target="navbarBasicExample"
+          onClick={() => setIsActive((prev) => !prev)}
         >
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -110,7 +112,10 @@ function Navbar() {
           <span aria-hidden="true"></span>
         </a>
       </div>
-      <div id="navbarBasicExample" className="navbar-menu">
+      <div
+        id="navbarBasicExample"
+        className={`navbar-menu${isActive ? " is-active" : ""}`}
+      >
         <div className="navbar-start">
           <Link className="navbar-item" to="/">
             HIMATIF

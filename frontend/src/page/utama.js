@@ -37,9 +37,305 @@ function Utama() {
       });
   }, []);
 
+  // Helper: cek apakah ada kegiatan yang disetujui
+  const hasKegiatan = Boolean(kegiatan);
+
+  // Render slides array
+  const slides = [];
+  // Slide 1: Profile HIMATIF
+  slides.push(
+    <div
+      key="profile"
+      className="carousel-item"
+      style={{
+        padding: "2.5rem 2rem",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        width: "100%",
+        boxSizing: "border-box",
+      }}
+    >
+      <div
+        className="columns is-vcentered is-mobile is-multiline"
+        style={{ width: "100%" }}
+      >
+        <div
+          className="column is-12-mobile is-5-tablet is-5-desktop has-text-centered"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginBottom: 16,
+          }}
+        >
+          <img
+            src={profileHimatif.gambar}
+            alt="Profile HIMATIF"
+            style={{
+              maxHeight: 140,
+              width: "100%",
+              maxWidth: 220,
+              margin: "0 auto",
+              borderRadius: 12,
+              boxShadow: "0 1px 6px rgba(0,0,0,0.08)",
+              objectFit: "contain",
+            }}
+          />
+        </div>
+        <div
+          className="column is-12-mobile is-7-tablet is-7-desktop"
+          style={{ display: "flex", alignItems: "center" }}
+        >
+          <div style={{ maxWidth: 420, margin: "0 auto", width: "100%" }}>
+            <h2
+              className="title is-4 mb-2"
+              style={{ color: "#1a237e", wordBreak: "break-word" }}
+            >
+              {profileHimatif.nama}
+            </h2>
+            <p
+              className="subtitle is-6 has-text-grey"
+              style={{
+                fontSize: "0.98rem",
+                lineHeight: "1.6",
+                overflow: "hidden",
+                display: "-webkit-box",
+                WebkitLineClamp: 4,
+                WebkitBoxOrient: "vertical",
+                marginBottom: 8,
+                wordBreak: "break-word",
+              }}
+            >
+              {profileHimatif.deskripsi}
+            </p>
+            <button
+              onClick={() =>
+                profileSection.current?.scrollIntoView({
+                  behavior: "smooth",
+                })
+              }
+              className="button is-primary is-small is-outlined mt-2"
+              style={{
+                borderRadius: 20,
+                padding: "0 20px",
+                height: 32,
+                fontSize: "0.92rem",
+                fontWeight: 500,
+                letterSpacing: 0.2,
+                transition: "all 0.3s ease",
+                width: "100%",
+                maxWidth: 180,
+              }}
+            >
+              Read More
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+  // Slide 2: Kegiatan (hanya jika ada kegiatan)
+  if (hasKegiatan) {
+    slides.push(
+      <div
+        key="kegiatan"
+        className="carousel-item"
+        style={{
+          padding: "2.5rem 2rem",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          width: "100%",
+          boxSizing: "border-box",
+        }}
+      >
+        <div
+          className="columns is-vcentered is-mobile is-multiline"
+          style={{ width: "100%" }}
+        >
+          <div
+            className="column is-12-mobile is-5-tablet is-5-desktop has-text-centered"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginBottom: 16,
+            }}
+          >
+            <div
+              className="box has-background-primary-light"
+              style={{
+                padding: "1.5rem 1rem",
+                borderRadius: 10,
+                boxShadow: "0 1px 6px rgba(0,0,0,0.07)",
+                minHeight: 120,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+                maxWidth: 220,
+              }}
+            >
+              <h2
+                className="title is-4 has-text-primary"
+                style={{ marginBottom: 8, wordBreak: "break-word" }}
+              >
+                {kegiatan.nama_kegiatan}
+              </h2>
+              <p
+                className="subtitle is-6 has-text-grey"
+                style={{ fontSize: "0.95rem" }}
+              >
+                <strong>Tanggal:</strong> {kegiatan.tanggal}
+              </p>
+            </div>
+          </div>
+          <div
+            className="column is-12-mobile is-7-tablet is-7-desktop"
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <div className="content" style={{ width: "100%" }}>
+              <p
+                style={{
+                  overflow: "hidden",
+                  display: "-webkit-box",
+                  WebkitLineClamp: 3,
+                  WebkitBoxOrient: "vertical",
+                  fontSize: "0.98rem",
+                  marginBottom: 8,
+                  wordBreak: "break-word",
+                }}
+              >
+                {kegiatan.deskripsi}
+              </p>
+              <button
+                onClick={() => (window.location.href = "/kegiatan")}
+                className="button is-primary is-small is-outlined mt-2"
+                style={{
+                  borderRadius: 20,
+                  padding: "0 20px",
+                  height: 32,
+                  fontSize: "0.92rem",
+                  fontWeight: 500,
+                  letterSpacing: 0.2,
+                  transition: "all 0.3s ease",
+                  width: "100%",
+                  maxWidth: 180,
+                }}
+              >
+                Read More
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Untuk tampilan statis (hanya satu slide), hilangkan class carousel-item
+  const staticSlide = (
+    <div
+      key="static-profile"
+      style={{
+        padding: "2.5rem 2rem",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        width: "100%",
+        boxSizing: "border-box",
+      }}
+    >
+      <div
+        className="columns is-vcentered is-mobile is-multiline"
+        style={{ width: "100%" }}
+      >
+        <div
+          className="column is-12-mobile is-5-tablet is-5-desktop has-text-centered"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginBottom: 16,
+          }}
+        >
+          <img
+            src={profileHimatif.gambar}
+            alt="Profile HIMATIF"
+            style={{
+              maxHeight: 140,
+              width: "100%",
+              maxWidth: 220,
+              margin: "0 auto",
+              borderRadius: 12,
+              boxShadow: "0 1px 6px rgba(0,0,0,0.08)",
+              objectFit: "contain",
+            }}
+          />
+        </div>
+        <div
+          className="column is-12-mobile is-7-tablet is-7-desktop"
+          style={{ display: "flex", alignItems: "center" }}
+        >
+          <div style={{ maxWidth: 420, margin: "0 auto", width: "100%" }}>
+            <h2
+              className="title is-4 mb-2"
+              style={{ color: "#1a237e", wordBreak: "break-word" }}
+            >
+              {profileHimatif.nama}
+            </h2>
+            <p
+              className="subtitle is-6 has-text-grey"
+              style={{
+                fontSize: "0.98rem",
+                lineHeight: "1.6",
+                overflow: "hidden",
+                display: "-webkit-box",
+                WebkitLineClamp: 4,
+                WebkitBoxOrient: "vertical",
+                marginBottom: 8,
+                wordBreak: "break-word",
+              }}
+            >
+              {profileHimatif.deskripsi}
+            </p>
+            <button
+              onClick={() =>
+                profileSection.current?.scrollIntoView({
+                  behavior: "smooth",
+                })
+              }
+              className="button is-primary is-small is-outlined mt-2"
+              style={{
+                borderRadius: 20,
+                padding: "0 20px",
+                height: 32,
+                fontSize: "0.92rem",
+                fontWeight: 500,
+                letterSpacing: 0.2,
+                transition: "all 0.3s ease",
+                width: "100%",
+                maxWidth: 180,
+              }}
+            >
+              Read More
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   useEffect(() => {
-    // Inisialisasi carousel setelah data loaded dan DOM ready
-    if (dataLoaded && carouselRef.current) {
+    // Clean up all previous carousels before initializing
+    if (window.bulmaCarousel) {
+      window.bulmaCarousel.attach("[data-carousel]");
+    }
+    if (dataLoaded && carouselRef.current && slides.length > 1) {
+      if (carouselRef.current.bulmaCarousel) {
+        carouselRef.current.bulmaCarousel.destroy();
+      }
       const timer = setTimeout(() => {
         try {
           bulmaCarousel.attach(carouselRef.current, {
@@ -47,173 +343,73 @@ function Utama() {
             slidesToShow: 1,
             autoplay: true,
             autoplaySpeed: 5000,
-            loop: true,
-            infinite: true,
+            loop: false, // nonaktifkan loop
+            infinite: false, // nonaktifkan infinite
             pauseOnHover: true,
           });
         } catch (error) {
           console.error("Carousel initialization error:", error);
         }
       }, 100);
-
-      return () => clearTimeout(timer);
+      return () => {
+        clearTimeout(timer);
+        if (carouselRef.current && carouselRef.current.bulmaCarousel) {
+          carouselRef.current.bulmaCarousel.destroy();
+        }
+      };
     }
-  }, [dataLoaded]);
+    return () => {
+      if (carouselRef.current && carouselRef.current.bulmaCarousel) {
+        carouselRef.current.bulmaCarousel.destroy();
+      }
+    };
+  }, [dataLoaded, slides.length]);
 
   return (
     <>
       <section className="section">
         <div className="container">
           {/* Carousel section */}
-          <div
-            ref={carouselRef}
-            className="carousel"
-            style={{
-              backgroundColor: "#fff",
-              boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-              borderRadius: "12px",
-              padding: "0",
-              marginBottom: "2rem",
-              overflow: "hidden",
-              minHeight: 260,
-            }}
-          >
-            {/* Slide 1: Profile HIMATIF */}
+          {slides.length > 1 ? (
             <div
-              className="carousel-item is-active"
-              style={{ padding: "2.5rem 2rem" }}
+              ref={carouselRef}
+              className="carousel"
+              data-carousel
+              style={{
+                backgroundColor: "#fff",
+                boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+                borderRadius: "12px",
+                padding: 0,
+                marginBottom: "2rem",
+                overflow: "hidden",
+                minHeight: 260,
+                width: "100%",
+                maxWidth: 900,
+                marginLeft: "auto",
+                marginRight: "auto",
+              }}
             >
-              <div className="columns is-vcentered is-mobile">
-                <div className="column is-5 has-text-centered">
-                  <img
-                    src={profileHimatif.gambar}
-                    alt="Profile HIMATIF"
-                    style={{
-                      maxHeight: 180,
-                      width: "auto",
-                      margin: "0 auto",
-                      borderRadius: 12,
-                      boxShadow: "0 1px 6px rgba(0,0,0,0.08)",
-                    }}
-                  />
-                </div>
-                <div className="column is-7">
-                  <div style={{ maxWidth: 420, margin: "0 auto" }}>
-                    <h2
-                      className="title is-4 mb-2"
-                      style={{ color: "#1a237e" }}
-                    >
-                      {profileHimatif.nama}
-                    </h2>
-                    <p
-                      className="subtitle is-6 has-text-grey"
-                      style={{
-                        fontSize: "0.98rem",
-                        lineHeight: "1.6",
-                        overflow: "hidden",
-                        display: "-webkit-box",
-                        WebkitLineClamp: 4,
-                        WebkitBoxOrient: "vertical",
-                        marginBottom: 8,
-                      }}
-                    >
-                      {profileHimatif.deskripsi}
-                    </p>
-                    <button
-                      onClick={() =>
-                        profileSection.current?.scrollIntoView({
-                          behavior: "smooth",
-                        })
-                      }
-                      className="button is-primary is-small is-outlined mt-2"
-                      style={{
-                        borderRadius: 20,
-                        padding: "0 20px",
-                        height: 32,
-                        fontSize: "0.92rem",
-                        fontWeight: 500,
-                        letterSpacing: 0.2,
-                        transition: "all 0.3s ease",
-                      }}
-                    >
-                      Read More
-                    </button>
-                  </div>
-                </div>
-              </div>
+              {slides}
             </div>
-
-            {/* Slide 2: Kegiatan */}
-            <div className="carousel-item" style={{ padding: "2.5rem 2rem" }}>
-              {kegiatan ? (
-                <div className="columns is-vcentered is-mobile">
-                  <div className="column is-5 has-text-centered">
-                    <div
-                      className="box has-background-primary-light"
-                      style={{
-                        padding: "1.5rem 1rem",
-                        borderRadius: 10,
-                        boxShadow: "0 1px 6px rgba(0,0,0,0.07)",
-                        minHeight: 120,
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <h2
-                        className="title is-4 has-text-primary"
-                        style={{ marginBottom: 8 }}
-                      >
-                        {kegiatan.nama_kegiatan}
-                      </h2>
-                      <p
-                        className="subtitle is-6 has-text-grey"
-                        style={{ fontSize: "0.95rem" }}
-                      >
-                        <strong>Tanggal:</strong> {kegiatan.tanggal}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="column is-7">
-                    <div className="content">
-                      <p
-                        style={{
-                          overflow: "hidden",
-                          display: "-webkit-box",
-                          WebkitLineClamp: 3,
-                          WebkitBoxOrient: "vertical",
-                          fontSize: "0.98rem",
-                          marginBottom: 8,
-                        }}
-                      >
-                        {kegiatan.deskripsi}
-                      </p>
-                      <button
-                        onClick={() => (window.location.href = "/kegiatan")}
-                        className="button is-primary is-small is-outlined mt-2"
-                        style={{
-                          borderRadius: 20,
-                          padding: "0 20px",
-                          height: 32,
-                          fontSize: "0.92rem",
-                          fontWeight: 500,
-                          letterSpacing: 0.2,
-                          transition: "all 0.3s ease",
-                        }}
-                      >
-                        Read More
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <div className="has-text-centered py-6">
-                  <p className="is-size-5">Tidak ada kegiatan disetujui</p>
-                </div>
-              )}
+          ) : (
+            <div
+              style={{
+                backgroundColor: "#fff",
+                boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+                borderRadius: "12px",
+                padding: 0,
+                marginBottom: "2rem",
+                overflow: "hidden",
+                minHeight: 260,
+                width: "100%",
+                maxWidth: 900,
+                marginLeft: "auto",
+                marginRight: "auto",
+              }}
+            >
+              {staticSlide}
             </div>
-          </div>
+          )}
         </div>
       </section>
 
@@ -221,15 +417,29 @@ function Utama() {
       <section className="section" ref={profileSection} id="profile-section">
         <div className="container">
           <div className="columns is-centered">
-            <div className="column is-8">
+            <div className="column is-12-mobile is-10-tablet is-8-desktop">
               <div className="has-text-centered mb-6">
                 <img
                   src={profileHimatif.gambar}
                   alt="Logo HIMATIF"
-                  style={{ maxHeight: 150, marginBottom: 20 }}
+                  style={{
+                    maxHeight: 120,
+                    marginBottom: 20,
+                    width: "100%",
+                    maxWidth: 180,
+                    objectFit: "contain",
+                  }}
                 />
-                <h2 className="title is-3 mb-2">{profileHimatif.nama}</h2>
-                <h3 className="title is-3 has-text-primary mb-2">
+                <h2
+                  className="title is-3 mb-2"
+                  style={{ wordBreak: "break-word" }}
+                >
+                  {profileHimatif.nama}
+                </h2>
+                <h3
+                  className="title is-3 has-text-primary mb-2"
+                  style={{ wordBreak: "break-word" }}
+                >
                   {profileHimatif.kabinet}
                 </h3>
                 <p className="subtitle is-6">{profileHimatif.periode}</p>
@@ -238,14 +448,30 @@ function Utama() {
               <div className="content">
                 <div className="mb-6">
                   <h4 className="title is-4 has-text-centered mb-4">Visi</h4>
-                  <p className="has-text-centered">{profileHimatif.visi}</p>
+                  <p
+                    className="has-text-centered"
+                    style={{ wordBreak: "break-word" }}
+                  >
+                    {profileHimatif.visi}
+                  </p>
                 </div>
 
                 <div className="mt-6">
                   <h4 className="title is-4 has-text-centered mb-4">Misi</h4>
-                  <ul style={{ maxWidth: "800px", margin: "0 auto" }}>
+                  <ul
+                    style={{
+                      maxWidth: "800px",
+                      margin: "0 auto",
+                      paddingLeft: 18,
+                    }}
+                  >
                     {profileHimatif.misi.map((item, index) => (
-                      <li key={index}>{item}</li>
+                      <li
+                        key={index}
+                        style={{ marginBottom: 8, wordBreak: "break-word" }}
+                      >
+                        {item}
+                      </li>
                     ))}
                   </ul>
                 </div>
