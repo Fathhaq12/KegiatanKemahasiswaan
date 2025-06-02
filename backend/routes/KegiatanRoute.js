@@ -11,7 +11,8 @@ import { verifyToken, isAdmin } from "../middleware/VerifyToken.js";
 const router = express.Router();
 
 router.post("/kegiatan", verifyToken, createKegiatan);
-router.get("/kegiatan", getKegiatan);
+// Untuk admin: harus pakai verifyToken agar req.role terisi
+router.get("/kegiatan", verifyToken, getKegiatan);
 router.patch("/kegiatan/:id/status", verifyToken, isAdmin, updateStatus);
 router.put("/kegiatan/:id", verifyToken, updateKegiatan);
 router.delete("/kegiatan/:id", verifyToken, deleteKegiatan);

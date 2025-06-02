@@ -39,10 +39,10 @@ Content-Type: application/json
 
 ### 
 # Setelah login, copy accessToken dari response dan paste di bawah ini:
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiIxMjMyMjAwNTciLCJlbWFpbCI6ImFkbWluMUB1cG55ay5hYy5pZCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc0ODg4NTg4NiwiZXhwIjoxNzQ4ODg3Njg2fQ.gVOuctzHQPDCtcVseINd2tVcTDafMjZdIwiLQwDdWKk
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiIxMjMyMjAwNTciLCJlbWFpbCI6ImFkbWluMUB1cG55ay5hYy5pZCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc0ODg4NzE2NCwiZXhwIjoxNzQ4ODg4OTY0fQ.stP8JQ1D9-Mx5LmFQrTUWh7juaLGaaLLBaqxZieZDpw
 
 ### Get Profile
-GET http://localhost:5000/api/profile
+GET https://kemahasiswaan-1061342868557.us-central1.run.app/api/profile
 Authorization: Bearer {{token}}
 
 ### Get All Users (admin only)
@@ -99,7 +99,7 @@ DELETE http://localhost:5000/api/kegiatan/3
 Authorization: Bearer {{token}}
 
 ### Update Status Kegiatan (admin only)
-PATCH http://localhost:5000/api/kegiatan/3/status
+PATCH https://kemahasiswaan-1061342868557.us-central1.run.app/api/kegiatan/3/status
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
