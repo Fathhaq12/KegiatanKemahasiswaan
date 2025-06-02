@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getKegiatan, updateKegiatanStatus } from "../api";
+import { getKegiatanForAdmin, updateKegiatanStatus } from "../api";
 import Loading from "../components/loading";
 
 function AdminPage() {
@@ -13,7 +13,7 @@ function AdminPage() {
       setLoading(true);
       setError("");
       try {
-        const res = await getKegiatan();
+        const res = await getKegiatanForAdmin();
         setKegiatan(res.data);
       } catch (err) {
         setError("Gagal memuat data kegiatan");

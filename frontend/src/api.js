@@ -1,4 +1,5 @@
 import axios from "axios";
+import { data } from "react-router-dom";
 
 const API_URL = "https://kemahasiswaan-1061342868557.us-central1.run.app/api";
 
@@ -53,7 +54,14 @@ export const deleteUser = (id) => axios.delete(`${API_URL}/users/${id}`);
 
 // Kegiatan APIs
 export const getKegiatan = () => axios.get(`${API_URL}/kegiatan`);
-export const getKegiatanById = (id) => axios.get(`${API_URL}/kegiatan/${id}`);
+// Ambil semua kegiatan (khusus admin, termasuk pending/approved/rejected)
+export const getKegiatanForAdmin = () =>
+  axios.get(`${API_URL}/kegiatan-admin`, {
+    // Paksa Authorization header dikirim (admin harus login)
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    },
+  });
 export const createKegiatan = (data) => axios.post(`${API_URL}/kegiatan`, data);
 export const updateKegiatan = (id, data) =>
   axios.patch(`${API_URL}/kegiatan/${id}`, data);

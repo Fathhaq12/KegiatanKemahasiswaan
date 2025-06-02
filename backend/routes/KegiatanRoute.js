@@ -13,6 +13,7 @@ const router = express.Router();
 router.post("/kegiatan", verifyToken, createKegiatan);
 // Untuk admin: harus pakai verifyToken agar req.role terisi
 router.get("/kegiatan", getKegiatan);
+router.get("/kegiatan-admin", verifyToken, getKegiatan);
 router.patch("/kegiatan/:id/status", verifyToken, isAdmin, updateStatus);
 router.put("/kegiatan/:id", verifyToken, updateKegiatan);
 router.delete("/kegiatan/:id", verifyToken, deleteKegiatan);
