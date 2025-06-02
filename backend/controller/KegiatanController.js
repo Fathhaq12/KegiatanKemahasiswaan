@@ -24,8 +24,8 @@ export const getKegiatan = async (req, res) => {
     if (req.role === "admin") {
       kegiatan = await Kegiatan.findAll();
     }
-    // Jika user login (user_id valid), tampilkan milik user
-    else if (req.user_id && typeof req.user_id === "number") {
+    // Jika user login (user_id valid number), tampilkan milik user
+    else if (req.user_id && !isNaN(Number(req.user_id))) {
       kegiatan = await Kegiatan.findAll({ where: { user_id: req.user_id } });
     }
     // Jika tidak login atau token tidak valid, tampilkan yang approved (publik)

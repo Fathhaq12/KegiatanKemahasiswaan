@@ -16,9 +16,8 @@ function KegiatanPage() {
         // Filter only approved kegiatan
         setKegiatan(res.data.filter((k) => k.status === "approved"));
       } catch (err) {
-        setError(
-          "Harap login terlebih dahulu untuk melihat daftar kegiatan anda."
-        );
+        // Jangan tampilkan error, tetap tampilkan halaman kosong
+        setKegiatan([]);
       }
       setLoading(false);
     };
@@ -31,7 +30,7 @@ function KegiatanPage() {
     <section className="section">
       <div className="container">
         <h1 className="title has-text-centered">Daftar Kegiatan HIMATIF</h1>
-        {error && <p className="help is-danger">{error}</p>}
+        {/* Hapus error agar tidak mengganggu user publik */}
         <div className="columns is-multiline">
           {kegiatan.length === 0 ? (
             <div className="column is-12 has-text-centered">
@@ -39,18 +38,40 @@ function KegiatanPage() {
             </div>
           ) : (
             kegiatan.map((k, i) => (
-              <div className="column is-4" key={k.id}>
-                <div className="card" style={{ height: "100%" }}>
+              <div
+                className="column is-4"
+                key={k.id}
+                style={{ display: "flex" }}
+              >
+                <div
+                  className="card"
+                  style={{
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    minHeight: 260,
+                  }}
+                >
                   <header className="card-header">
                     <p className="card-header-title">{k.nama_kegiatan}</p>
                   </header>
-                  <div className="card-content">
-                    <div className="content">
+                  <div className="card-content" style={{ flex: 1 }}>
+                    <div className="content" style={{ minHeight: 80 }}>
                       <strong>Tanggal:</strong> {k.tanggal}
                       <br />
                       <strong>Deskripsi:</strong>
                       <br />
-                      {k.deskripsi}
+                      <span
+                        style={{
+                          display: "-webkit-box",
+                          WebkitLineClamp: 4,
+                          WebkitBoxOrient: "vertical",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}
+                      >
+                        {k.deskripsi}
+                      </span>
                     </div>
                   </div>
                 </div>

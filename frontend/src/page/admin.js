@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getKegiatan, updateKegiatan } from "../api";
+import { getKegiatan, updateKegiatanStatus } from "../api";
 import Loading from "../components/loading";
 
 function AdminPage() {
@@ -32,13 +32,17 @@ function AdminPage() {
   // Fungsi untuk update status kegiatan
   const handleUpdateStatus = async (id, status) => {
     try {
-      await updateKegiatan(id, { status });
-      // Update local state after successful API call
+      await updateKegiatanStatus(id, status);
       setKegiatan((prev) =>
         prev.map((k) => (k.id === id ? { ...k, status } : k))
       );
+      alert(`Status kegiatan berhasil diubah menjadi "${status}"`);
     } catch (err) {
-      alert("Gagal mengubah status kegiatan");
+      if (err.response && err.response.status === 403) {
+        alert("Anda tidak memiliki izin untuk mengubah status kegiatan ini.");
+      } else {
+        alert("Gagal mengubah status kegiatan");
+      }
     }
   };
 

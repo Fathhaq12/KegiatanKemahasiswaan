@@ -2,12 +2,26 @@ import axios from "axios";
 
 const API_URL = "https://kemahasiswaan-1061342868557.us-central1.run.app/api";
 
-// Tambahkan interceptor agar setiap request menyertakan Authorization jika ada token
+// Interceptor: hanya kirim Authorization jika token valid DAN bukan GET /kegiatan publik
 axios.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("accessToken");
-    if (token) {
+    // Jangan kirim Authorization untuk GET /kegiatan publik jika belum login
+    if (
+      token &&
+      token !== "undefined" &&
+      token !== "null" &&
+      token.trim() !== "" &&
+      !(
+        config.method === "get" &&
+        config.url &&
+        config.url.endsWith("/kegiatan")
+      )
+    ) {
       config.headers["Authorization"] = `Bearer ${token}`;
+    } else {
+      // Pastikan Authorization header tidak dikirim
+      delete config.headers["Authorization"];
     }
     return config;
   },
@@ -44,5 +58,7 @@ export const createKegiatan = (data) => axios.post(`${API_URL}/kegiatan`, data);
 export const updateKegiatan = (id, data) =>
   axios.patch(`${API_URL}/kegiatan/${id}`, data);
 export const deleteKegiatan = (id) => axios.delete(`${API_URL}/kegiatan/${id}`);
+export const updateKegiatanStatus = (id, status) =>
+  axios.patch(`${API_URL}/kegiatan/${id}/status`, { status });
 
 // Add more API functions as needed
