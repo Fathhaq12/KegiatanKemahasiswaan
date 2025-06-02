@@ -38,6 +38,27 @@ export const getKegiatan = async (req, res) => {
   }
 };
 
+// Ambil detail kegiatan berdasarkan id
+export const getKegiatanById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const kegiatan = await Kegiatan.findByPk(id);
+    if (!kegiatan) {
+      return res.status(404).json({ message: "Kegiatan tidak ditemukan" });
+    }
+    // Jika publik, hanya boleh akses yang approved
+    if (
+      (!req.role || req.role !== "admin") &&
+      (!req.user_id || kegiatan.status !== "approved")
+    ) {
+      return res.status(403).json({ message: "Forbidden" });
+    }
+    res.json(kegiatan);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 // Admin: update status
 export const updateStatus = async (req, res) => {
   if (req.role !== "admin") return res.sendStatus(403);
