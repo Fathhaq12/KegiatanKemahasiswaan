@@ -7,6 +7,11 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 
 function EditProfile() {
   const [form, setForm] = useState({ username: "", email: "", role: "" });
+  const [initialForm, setInitialForm] = useState({
+    username: "",
+    email: "",
+    role: "",
+  });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -16,11 +21,13 @@ function EditProfile() {
     const stored = localStorage.getItem("userData");
     if (stored) {
       const user = JSON.parse(stored);
-      setForm({
+      const userForm = {
         username: user.username || "",
         email: user.email || "",
         role: user.role || "",
-      });
+      };
+      setForm(userForm);
+      setInitialForm(userForm);
     }
   }, []);
 
@@ -31,6 +38,15 @@ function EditProfile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    // Cek jika tidak ada perubahan
+    if (
+      form.username === initialForm.username &&
+      form.email === initialForm.email
+    ) {
+      alert("Tidak ada perubahan pada profile.");
+      navigate("/");
+      return;
+    }
     setLoading(true);
     try {
       // Ambil id user dari localStorage jika ada

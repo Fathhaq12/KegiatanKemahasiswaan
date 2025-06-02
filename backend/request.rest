@@ -99,7 +99,7 @@ DELETE http://localhost:5000/api/kegiatan/3
 Authorization: Bearer {{token}}
 
 ### Update Status Kegiatan (admin only)
-PATCH https://kemahasiswaan-1061342868557.us-central1.run.app/api/kegiatan/3/status
+PATCH https://kemahasiswaan-1061342868557.us-central1.run.app/api/kegiatan/1/status
 Authorization: Bearer {{token}}
 Content-Type: application/json
 

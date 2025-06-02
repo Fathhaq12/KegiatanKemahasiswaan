@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { getKegiatan } from "../api";
+import { getKegiatan, updateKegiatan } from "../api";
 import Loading from "../components/loading";
-import axios from "axios";
 
 function AdminPage() {
   const [kegiatan, setKegiatan] = useState([]);
@@ -33,15 +32,7 @@ function AdminPage() {
   // Fungsi untuk update status kegiatan
   const handleUpdateStatus = async (id, status) => {
     try {
-      await axios.patch(
-        `http://localhost:5000/api/kegiatan/${id}/status`,
-        { status },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      );
+      await updateKegiatan(id, { status });
       // Update local state after successful API call
       setKegiatan((prev) =>
         prev.map((k) => (k.id === id ? { ...k, status } : k))
