@@ -20,26 +20,26 @@ Content-Type: application/json
 }
 
 ### Login Mahasiswa
-POST http://localhost:5000/api/login
+POST https://kemahasiswaan-1061342868557.us-central1.run.app/api/login
 Content-Type: application/json
 
 {
-  "username": "mahasiswa1",
-  "password": "password123"
+  "username": "q",
+  "password": "123"
 }
 
 ### Login Admin
-POST http://localhost:5000/api/login
+POST https://kemahasiswaan-1061342868557.us-central1.run.app/api/login
 Content-Type: application/json
 
 {
-  "username": "admin1",
-  "password": "adminpassword"
+  "username": "123220057",
+  "password": "123220057"
 }
 
 ### 
 # Setelah login, copy accessToken dari response dan paste di bawah ini:
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJtYWhhc2lzd2ExIiwiZW1haWwiOiJtYWhhc2lzd2ExQGV4YW1wbGUuY29tIiwicm9sZSI6Im1haGFzaXN3YSIsImlhdCI6MTc0ODc3NDc2OCwiZXhwIjoxNzQ4Nzc2NTY4fQ.pnZCCIlJXhLn991Dg5kwzieOi3_OFg6fa-q920ybx4I
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiIxMjMyMjAwNTciLCJlbWFpbCI6ImFkbWluMUB1cG55ay5hYy5pZCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc0ODg4NTg4NiwiZXhwIjoxNzQ4ODg3Njg2fQ.gVOuctzHQPDCtcVseINd2tVcTDafMjZdIwiLQwDdWKk
 
 ### Get Profile
 GET http://localhost:5000/api/profile
@@ -69,7 +69,7 @@ DELETE http://localhost:5000/api/delete-users/1
 Authorization: Bearer {{token}}
 
 ### Create Kegiatan (mahasiswa)
-POST http://localhost:5000/api/kegiatan
+POST https://kemahasiswaan-1061342868557.us-central1.run.app/api/kegiatan
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
@@ -80,11 +80,11 @@ Content-Type: application/json
 }
 
 ### Get Kegiatan (mahasiswa or admin)
-GET http://localhost:5000/api/kegiatan
+GET https://kemahasiswaan-1061342868557.us-central1.run.app/api/kegiatan
 Authorization: Bearer {{token}}
 
 ### Update Kegiatan (mahasiswa: hanya milik sendiri, admin: semua)
-PUT http://localhost:5000/api/kegiatan/3
+PUT https://kemahasiswaan-1061342868557.us-central1.run.app/api/kegiatan/9
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
@@ -116,7 +116,7 @@ Content-Type: application/json
 }
 
 ### Logout
-POST http://localhost:5000/api/logout
+POST https://kemahasiswaan-1061342868557.us-central1.run.app/api/logout
 Content-Type: application/json
 
 {

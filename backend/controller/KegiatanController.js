@@ -20,12 +20,16 @@ export const createKegiatan = async (req, res) => {
 export const getKegiatan = async (req, res) => {
   try {
     let kegiatan;
+    // Jika admin, tampilkan semua
     if (req.role === "admin") {
       kegiatan = await Kegiatan.findAll();
-    } else if (req.user_id) {
+    }
+    // Jika user login (user_id valid), tampilkan milik user
+    else if (req.user_id && typeof req.user_id === "number") {
       kegiatan = await Kegiatan.findAll({ where: { user_id: req.user_id } });
-    } else {
-      // publik: hanya tampilkan approved
+    }
+    // Jika tidak login atau token tidak valid, tampilkan yang approved (publik)
+    else {
       kegiatan = await Kegiatan.findAll({ where: { status: "approved" } });
     }
     res.json(kegiatan);
