@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { getKegiatan } from "../api";
 import Loading from "../components/loading";
+import { useNavigate } from "react-router-dom";
 
 function KegiatanPage() {
   const [kegiatan, setKegiatan] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchApproved = async () => {
@@ -39,24 +41,32 @@ function KegiatanPage() {
           ) : (
             kegiatan.map((k, i) => (
               <div
-                className="column is-4"
+                className="column is-4 d-flex"
                 key={k.id}
                 style={{ display: "flex" }}
               >
                 <div
                   className="card"
                   style={{
-                    height: "100%",
                     display: "flex",
                     flexDirection: "column",
-                    minHeight: 260,
+                    flex: 1,
+                    minHeight: 320,
+                    width: "100%",
                   }}
                 >
-                  <header className="card-header">
+                  <header className="card-header" style={{ minHeight: 56 }}>
                     <p className="card-header-title">{k.nama_kegiatan}</p>
                   </header>
-                  <div className="card-content" style={{ flex: 1 }}>
-                    <div className="content" style={{ minHeight: 80 }}>
+                  <div
+                    className="card-content"
+                    style={{
+                      flex: 1,
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <div className="content" style={{ flex: 1 }}>
                       <strong>Tanggal:</strong> {k.tanggal}
                       <br />
                       <strong>Deskripsi:</strong>
@@ -68,10 +78,20 @@ function KegiatanPage() {
                           WebkitBoxOrient: "vertical",
                           overflow: "hidden",
                           textOverflow: "ellipsis",
+                          minHeight: 80,
                         }}
                       >
                         {k.deskripsi}
                       </span>
+                    </div>
+                    <div style={{ marginTop: "auto" }}>
+                      <button
+                        className="button is-link is-small"
+                        style={{ borderRadius: 20, marginTop: 10 }}
+                        onClick={() => navigate(`/kegiatan/${k.id}`)}
+                      >
+                        Baca lebih lanjut
+                      </button>
                     </div>
                   </div>
                 </div>

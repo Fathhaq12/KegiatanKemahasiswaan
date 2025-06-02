@@ -54,6 +54,7 @@ export const deleteUser = (id) => axios.delete(`${API_URL}/users/${id}`);
 
 // Kegiatan APIs
 export const getKegiatan = () => axios.get(`${API_URL}/kegiatan`);
+export const getKegiatanById = (id) => axios.get(`${API_URL}/kegiatan/${id}`);
 // Ambil semua kegiatan (khusus admin, termasuk pending/approved/rejected)
 export const getKegiatanForAdmin = () =>
   axios.get(`${API_URL}/kegiatan-admin`, {
