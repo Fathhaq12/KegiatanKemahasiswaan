@@ -12,12 +12,11 @@ function Utama() {
     deskripsi:
       "Himpunan Mahasiswa Teknik Informatika UPN Veteran Yogyakarta adalah organisasi kemahasiswaan yang aktif dalam pengembangan minat, bakat, dan keilmuan di bidang informatika.",
     gambar: require("../gambar/Frame367.png"),
-    visi: "Menjadi wadah aspirasi mahasiswa Teknik Informatika yang profesional dan berkualitas.",
+    visi: "Menjadikan HIMATIF sebagai tempat berhimpun yang memberikan kebermanfaatan, mendorong kolaborasi yang aspiratif dan inovatif serta menjunjung tinggi Tri Dharma Perguruan Tinggi dan kekeluargaan dalam setiap langkah untuk membangun kohesi yang kuat dan berkembang bersama.",
     misi: [
-      "Meningkatkan kualitas akademik dan non-akademik mahasiswa Teknik Informatika",
-      "Mengembangkan soft skill dan hard skill mahasiswa melalui berbagai kegiatan",
-      "Menjalin hubungan baik dengan seluruh civitas akademika",
-      "Menjadi wadah kreativitas dan inovasi mahasiswa",
+      "Mendorong kolaborasi yang aspiratif dan inovatif antar seluruh elemen untuk mengembangkan inovasi yang berkelanjutan, serta memperkuat kohesi melalui komunikasi terbuka dan kerja sama yang harmonis.",
+      "Menjunjung tinggi kekeluargaan dalam setiap langkah HIMATIF untuk menciptakan lingkungan yang produktif, penuh integritas, dan beretika.",
+      "Mengintegrasikan Tri Dharma Perguruan Tinggi dalam setiap langkah HIMATIF untuk mendukung pengembangan ilmu pengetahuan, penelitian, dan pengabdian kepada masyarakat.",
     ],
     kabinet: "KABINET PARAMA ASA",
     periode: "2025/2026",
@@ -45,24 +44,118 @@ function Utama() {
         <div className="container">
           {/* Carousel section */}
           <div
-            className="carousel carousel-animated carousel-animate-slide"
-            data-autoplay="true"
+            className="box"
+            style={{
+              padding: "2rem",
+              backgroundColor: "#fff",
+              boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+            }}
           >
-            <div className="carousel-container">
-              {/* Slide 1: Profile HIMATIF */}
-              <div className="carousel-item is-active">
-                <div className="has-text-centered">
+            {/* Slide 1: Profile HIMATIF */}
+            <div className="carousel-item is-active">
+              <div className="columns is-vcentered is-mobile">
+                <div className="column is-5 has-text-centered">
                   <img
                     src={profileHimatif.gambar}
                     alt="Profile HIMATIF"
-                    style={{ maxHeight: 120, margin: "0 auto 16px" }}
+                    style={{
+                      maxHeight: 200,
+                      width: "auto",
+                      margin: "0 auto",
+                      transition: "all 0.3s ease-in-out",
+                    }}
                   />
-                  <h2 className="title is-4">{profileHimatif.nama}</h2>
-                  <p>{profileHimatif.deskripsi}</p>
+                </div>
+                <div className="column is-7">
+                  <div style={{ maxWidth: "400px", margin: "0 auto" }}>
+                    <h2 className="title is-4 mb-2">{profileHimatif.nama}</h2>
+                    <p
+                      className="subtitle is-6 has-text-grey"
+                      style={{
+                        fontSize: "0.9rem",
+                        lineHeight: "1.5",
+                        overflow: "hidden",
+                        display: "-webkit-box",
+                        WebkitLineClamp: "4",
+                        WebkitBoxOrient: "vertical",
+                      }}
+                    >
+                      {profileHimatif.deskripsi}
+                    </p>
+                    <button
+                      onClick={() =>
+                        profileSection.current?.scrollIntoView({
+                          behavior: "smooth",
+                          href: "#profile-section",
+                        })
+                      }
+                      className="button is-primary is-small is-outlined mt-2"
+                      style={{
+                        borderRadius: "20px",
+                        padding: "0 20px",
+                        height: "32px",
+                        fontSize: "0.85rem",
+                        transition: "all 0.3s ease",
+                      }}
+                    >
+                      Read More
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="carousel-navigation is-centered"></div>
+
+            {/* Slide 2: Kegiatan */}
+            <div className="carousel-item">
+              {kegiatan ? (
+                <div className="columns is-vcentered is-mobile">
+                  <div className="column is-5 has-text-centered">
+                    <div
+                      className="box has-background-primary-light"
+                      style={{ padding: "2rem" }}
+                    >
+                      <h2 className="title is-4 has-text-primary">
+                        {kegiatan.nama_kegiatan}
+                      </h2>
+                      <p className="subtitle is-6 has-text-grey">
+                        <strong>Tanggal:</strong> {kegiatan.tanggal}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="column is-7">
+                    <div className="content">
+                      <p
+                        style={{
+                          overflow: "hidden",
+                          display: "-webkit-box",
+                          WebkitLineClamp: "3",
+                          WebkitBoxOrient: "vertical",
+                        }}
+                      >
+                        {kegiatan.deskripsi}
+                      </p>
+                      <button
+                        onClick={() => (window.location.href = "/kegiatan")}
+                        className="button is-primary is-small is-outlined mt-2"
+                        style={{
+                          borderRadius: "20px",
+                          padding: "0 20px",
+                          height: "32px",
+                          fontSize: "0.85rem",
+                          transition: "all 0.3s ease",
+                        }}
+                      >
+                        Read More
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="has-text-centered py-6">
+                  <p className="is-size-5">Tidak ada kegiatan disetujui</p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </section>

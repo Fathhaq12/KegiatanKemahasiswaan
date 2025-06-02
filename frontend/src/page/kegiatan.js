@@ -6,27 +6,24 @@ function KegiatanPage() {
   const [kegiatan, setKegiatan] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [statusFilter, setStatusFilter] = useState("approved");
 
   useEffect(() => {
-    const fetchAll = async () => {
+    const fetchApproved = async () => {
       setLoading(true);
       setError("");
       try {
         const res = await getKegiatan();
-        setKegiatan(res.data);
+        // Filter only approved kegiatan
+        setKegiatan(res.data.filter((k) => k.status === "approved"));
       } catch (err) {
-        setError("Harap login terlebih dahulu untuk melihat daftar kegiatan anda.");
+        setError(
+          "Harap login terlebih dahulu untuk melihat daftar kegiatan anda."
+        );
       }
       setLoading(false);
     };
-    fetchAll();
+    fetchApproved();
   }, []);
-
-  const filteredKegiatan =
-    statusFilter === "all"
-      ? kegiatan
-      : kegiatan.filter((k) => k.status === statusFilter);
 
   if (loading) return <Loading text="Memuat data kegiatan..." />;
 
@@ -34,29 +31,14 @@ function KegiatanPage() {
     <section className="section">
       <div className="container">
         <h1 className="title has-text-centered">Daftar Kegiatan HIMATIF</h1>
-        <div className="field is-grouped is-grouped-right" style={{ marginBottom: 20 }}>
-          <div className="control">
-            <div className="select">
-              <select
-                value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value)}
-              >
-                <option value="approved">Approved</option>
-                <option value="pending">Pending</option>
-                <option value="rejected">Rejected</option>
-                <option value="all">Semua Status</option>
-              </select>
-            </div>
-          </div>
-        </div>
         {error && <p className="help is-danger">{error}</p>}
         <div className="columns is-multiline">
-          {filteredKegiatan.length === 0 ? (
+          {kegiatan.length === 0 ? (
             <div className="column is-12 has-text-centered">
-              Tidak ada kegiatan dengan status <b>{statusFilter}</b>
+              Tidak ada kegiatan yang tersedia
             </div>
           ) : (
-            filteredKegiatan.map((k, i) => (
+            kegiatan.map((k, i) => (
               <div className="column is-4" key={k.id}>
                 <div className="card" style={{ height: "100%" }}>
                   <header className="card-header">
@@ -71,13 +53,6 @@ function KegiatanPage() {
                       {k.deskripsi}
                     </div>
                   </div>
-                  <footer className="card-footer">
-                    <span className="card-footer-item">
-                      <span className={`tag is-light is-${k.status === "approved" ? "success" : k.status === "pending" ? "warning" : "danger"}`}>
-                        {k.status}
-                      </span>
-                    </span>
-                  </footer>
                 </div>
               </div>
             ))

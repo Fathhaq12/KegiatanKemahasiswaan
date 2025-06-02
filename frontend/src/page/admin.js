@@ -7,22 +7,28 @@ function AdminPage() {
   const [kegiatan, setKegiatan] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [statusFilter, setStatusFilter] = useState("pending");
 
   useEffect(() => {
-    const fetchPending = async () => {
+    const fetchKegiatan = async () => {
       setLoading(true);
       setError("");
       try {
         const res = await getKegiatan();
-        // Filter hanya status pending
-        setKegiatan(res.data.filter((k) => k.status === "pending"));
+        setKegiatan(res.data);
       } catch (err) {
         setError("Gagal memuat data kegiatan");
       }
       setLoading(false);
     };
-    fetchPending();
+    fetchKegiatan();
   }, []);
+
+  // Filter kegiatan based on status
+  const filteredKegiatan =
+    statusFilter === "all"
+      ? kegiatan
+      : kegiatan.filter((k) => k.status === statusFilter);
 
   // Fungsi untuk update status kegiatan
   const handleUpdateStatus = async (id, status) => {
@@ -36,8 +42,10 @@ function AdminPage() {
           },
         }
       );
-      // Refresh data setelah update
-      setKegiatan((prev) => prev.filter((k) => k.id !== id));
+      // Update local state after successful API call
+      setKegiatan((prev) =>
+        prev.map((k) => (k.id === id ? { ...k, status } : k))
+      );
     } catch (err) {
       alert("Gagal mengubah status kegiatan");
     }
@@ -48,7 +56,25 @@ function AdminPage() {
   return (
     <section className="section">
       <div className="container">
-        <h1 className="title has-text-centered">Data Kegiatan Pending</h1>
+        <h1 className="title has-text-centered">Manajemen Kegiatan</h1>
+        <div
+          className="field is-grouped is-grouped-right"
+          style={{ marginBottom: 20 }}
+        >
+          <div className="control">
+            <div className="select">
+              <select
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+              >
+                <option value="pending">Pending</option>
+                <option value="approved">Approved</option>
+                <option value="rejected">Rejected</option>
+                <option value="all">Semua Status</option>
+              </select>
+            </div>
+          </div>
+        </div>
         {error && <p className="help is-danger">{error}</p>}
         <div className="table-container">
           <table className="table is-fullwidth is-striped">
@@ -63,40 +89,56 @@ function AdminPage() {
               </tr>
             </thead>
             <tbody>
-              {kegiatan.length === 0 ? (
+              {filteredKegiatan.length === 0 ? (
                 <tr>
                   <td colSpan="6" className="has-text-centered">
-                    Tidak ada kegiatan pending
+                    Tidak ada kegiatan dengan status {statusFilter}
                   </td>
                 </tr>
               ) : (
-                kegiatan.map((k, i) => (
+                filteredKegiatan.map((k, i) => (
                   <tr key={k.id}>
                     <td>{i + 1}</td>
                     <td>{k.nama_kegiatan}</td>
                     <td>{k.tanggal}</td>
                     <td>{k.deskripsi}</td>
-                    <td>{k.status}</td>
                     <td>
-                      <button
-                        className="button is-small is-success"
-                        title="Setujui"
-                        onClick={() => handleUpdateStatus(k.id, "approved")}
-                        style={{ marginRight: 8 }}
+                      <span
+                        className={`tag is-${
+                          k.status === "approved"
+                            ? "success"
+                            : k.status === "pending"
+                            ? "warning"
+                            : "danger"
+                        }`}
                       >
-                        <span className="icon">
-                          <i className="fas fa-check"></i>
-                        </span>
-                      </button>
-                      <button
-                        className="button is-small is-danger"
-                        title="Tolak"
-                        onClick={() => handleUpdateStatus(k.id, "rejected")}
-                      >
-                        <span className="icon">
-                          <i className="fas fa-times"></i>
-                        </span>
-                      </button>
+                        {k.status}
+                      </span>
+                    </td>
+                    <td>
+                      {k.status !== "approved" && (
+                        <button
+                          className="button is-small is-success"
+                          title="Setujui"
+                          onClick={() => handleUpdateStatus(k.id, "approved")}
+                          style={{ marginRight: 8 }}
+                        >
+                          <span className="icon">
+                            <i className="fas fa-check"></i>
+                          </span>
+                        </button>
+                      )}
+                      {k.status !== "rejected" && (
+                        <button
+                          className="button is-small is-danger"
+                          title="Tolak"
+                          onClick={() => handleUpdateStatus(k.id, "rejected")}
+                        >
+                          <span className="icon">
+                            <i className="fas fa-times"></i>
+                          </span>
+                        </button>
+                      )}
                     </td>
                   </tr>
                 ))
